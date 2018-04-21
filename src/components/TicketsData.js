@@ -1,19 +1,21 @@
 import React, { Fragment } from 'react'
-import { Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function TicketsData({ count, requests }) {
    return (
       <Fragment>
          <p className="ticket-total">Total: {count} tickets</p>
-         <ul>
+         <ul className="my-2">
             {requests.map(ticket => {
                return (
-                  <li className="ticket-list" key={ticket.id}>
-                     <Link to={String(ticket.id)}>{ticket.subject}</Link>
-                     <small className="date">
-                        {Date(ticket.created_at).substring(3, 24)}
-                     </small>
-                  </li>
+                  <Link to={String(ticket.id)} key={ticket.id}>
+                     <li className="ticket-list capitalize" key={ticket.id}>
+                        {ticket.subject}
+                        <small className="date right">
+                           {Date(ticket.created_at).substring(3, 24)}
+                        </small>
+                     </li>
+                  </Link>
                )
             })}
          </ul>

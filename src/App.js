@@ -1,13 +1,8 @@
 import React, { Component, Fragment } from 'react'
-import {
-   BrowserRouter as Router,
-   Switch,
-   Route,
-   Link,
-   Redirect
-} from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import { listTickets } from './api/zendesk'
 import TicketsData from './components/TicketsData'
+import TicketDetails from './components/TicketDetails'
 
 class App extends Component {
    state = {
@@ -42,36 +37,29 @@ class App extends Component {
                ) : (
                   ''
                )}
-               <Switch>
-                  <Route
-                     path="/"
-                     exact
-                     render={() => (
-                        <Fragment>
-                           {!!tickets ? (
-                              <TicketsData {...tickets} />
-                           ) : (
-                              <div className="my-2 loader" />
-                           )}
-                        </Fragment>
-                     )}
-                  />
 
-                  {!!tickets &&
-                     tickets.requests.map(ticket => {
+               {!!tickets ? (
+                  <Switch>
+                     <Route
+                        path="/"
+                        exact
+                        render={() => <TicketsData {...tickets} />}
+                     />
+
+                     {tickets.requests.map(ticket => {
                         return (
                            <Route
                               path={`/${ticket.id}`}
                               exact
-                              render={() => (
-                                 <Fragment>
-                                    <p>{ticket.description}</p>
-                                 </Fragment>
-                              )}
+                              key={ticket.id}
+                              render={() => <TicketDetails ticket={ticket} />}
                            />
                         )
                      })}
-               </Switch>
+                  </Switch>
+               ) : (
+                  <div className="my-2 loader" />
+               )}
             </div>
          </Router>
       )

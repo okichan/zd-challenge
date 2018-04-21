@@ -1,5 +1,8 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito:400,700);
+
+
 html {
-  font-family: sans-serif;
+  font: 17px 'Nunito', sans-serif;
   color: #535353;
 }
 
@@ -28,9 +31,12 @@ a {
   font-weight: bold;
 }
 
+.right {
+  float: right;
+}
+
 .date {
   color: gray;
-  float: right;
 }
 
 .date::before {
@@ -44,7 +50,6 @@ a {
 
 .ticket-list:hover {
   background: rgb(247, 239, 248);
-  /* cursor: pointer; */
 }
 
 .loader {
@@ -67,4 +72,20 @@ a {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.ticket-details {
+  border: 2px dotted lavender;
+  border-radius: 20px;
+  max-width: 690px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.capitalize {
+  line-height: 1.7;
+}
+.capitalize:first-letter {
+  text-transform: capitalize;
 }
