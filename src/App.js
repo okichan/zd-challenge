@@ -1,26 +1,31 @@
 import React, { Component } from 'react'
 import './App.css'
-import { listProducts } from './api/zdClient'
+import { listTickets } from './api/zendesk'
 
 class App extends Component {
    state = {
-      products: null,
+      tickets: null,
       error: null
    }
 
    componentDidMount() {
-      listProducts()
-         .then(res => this.setState({ products: res }))
-         .catch(error => this.setState({ error }))
+      listTickets()
+         .then(res => this.setState({ tickets: res, error: null }))
+         .catch(error => {
+            this.setState({ error: error.message })
+            // console.log('Error loading quote!', error)
+         })
    }
 
    render() {
+      const { tickets, error } = this.state
       return (
          <div className="App">
             <h1>Ticket Viewer</h1>
-            <a href="https://tomomioki.zendesk.com/oauth/authorizations/new">
-               hit
-            </a>
+            <p>{error}</p>
+            {/* {tickets && tickets.map(ticket => {
+               <p>{ticket.id}</p>
+            })} */}
          </div>
       )
    }
