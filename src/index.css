@@ -17,7 +17,7 @@ a {
 }
 
 .header {
-  background: gainsboro;
+  background: rgb(184, 177, 121);
   padding: 1rem;
   margin-bottom: 1rem;
 }
@@ -52,6 +52,55 @@ a {
   background: rgb(247, 239, 248);
 }
 
+#page-numbers {
+  list-style: none;
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem auto;
+}
+
+#page-numbers > li {
+  user-select: none;
+  cursor: pointer;
+  border: 1px dotted;
+  border-color: lightgray;
+  border-right: 0px;
+  padding: 1rem;
+}
+
+#page-numbers > li:hover {
+  background: rgb(247, 239, 248);
+}
+
+#page-numbers > li:first-child {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+#page-numbers > li:last-child {
+  border-right: 1px dotted lightgray;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.ticket-details {
+  border: 2px dotted lavender;
+  border-radius: 20px;
+  max-width: 690px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.capitalize {
+  line-height: 1.7;
+}
+
+.capitalize:first-letter {
+  text-transform: capitalize;
+}
+
 .loader {
   margin: 0 auto;
   border: 6px solid #f8f8f8;
@@ -72,20 +121,4 @@ a {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
-}
-
-.ticket-details {
-  border: 2px dotted lavender;
-  border-radius: 20px;
-  max-width: 690px;
-  margin: 0 auto;
-  padding: 1.5rem;
-  box-sizing: border-box;
-}
-
-.capitalize {
-  line-height: 1.7;
-}
-.capitalize:first-letter {
-  text-transform: capitalize;
 }

@@ -7,6 +7,8 @@ import TicketDetails from './components/TicketDetails'
 class App extends Component {
    state = {
       tickets: null,
+      ticketsPerPage: 10,
+      currentPage: 1,
       error: null
    }
 
@@ -18,8 +20,38 @@ class App extends Component {
          })
    }
 
+   handleClick = event => {
+      this.setState({
+         currentPage: Number(event.target.id)
+      })
+   }
+
    render() {
-      const { tickets, error } = this.state
+      const { tickets, ticketsPerPage, currentPage, error } = this.state
+
+      // Logic for displaying current todos
+      const indexOfLastTicket = currentPage * ticketsPerPage
+      const indexOfFirstTicket = indexOfLastTicket - ticketsPerPage
+      let currentTickets
+
+      // Logic for displaying page numbers
+      const pageNumbers = []
+
+      if (tickets) {
+         currentTickets = tickets.requests.slice(indexOfFirstTicket, indexOfLastTicket)
+         for (let i = 1; i <= Math.ceil(tickets.requests.length / ticketsPerPage); i++) {
+            pageNumbers.push(i)
+         }
+      }
+
+      const renderPageNumbers = pageNumbers.map(number => {
+         return (
+            <li key={number} id={number} onClick={this.handleClick}>
+               {number}
+            </li>
+         )
+      })
+
       return (
          <Router>
             <div className="App">
@@ -43,7 +75,20 @@ class App extends Component {
                      <Route
                         path="/"
                         exact
-                        render={() => <TicketsData {...tickets} />}
+                        render={() => (
+                           <Fragment>
+                              <p className="ticket-total">
+                                 {tickets.count} tickets in total
+                              </p>
+                              <ul id="page-numbers">{renderPageNumbers}</ul>
+                              <ul>
+                                 {currentTickets.map(ticket => {
+                                    return <TicketsData ticket={ticket} key={ticket.id} />
+                                 })}
+                              </ul>
+                              <ul id="page-numbers">{renderPageNumbers}</ul>
+                           </Fragment>
+                        )}
                      />
 
                      {tickets.requests.map(ticket => {
