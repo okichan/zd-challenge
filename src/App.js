@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import {
    BrowserRouter as Router,
    Switch,
    Route,
+   Link,
    Redirect
 } from 'react-router-dom'
 import { listTickets } from './api/zendesk'
@@ -25,29 +26,54 @@ class App extends Component {
    render() {
       const { tickets, error } = this.state
       return (
-         <div className="App">
-            <div className="header">
-               <h1>Ticket Viewer</h1>
-            </div>
-            {error ? (
-               <p className="my-2">
-                  <span role="img" aria-label="loading error">
-                     😓
-                  </span>Oops something went wrong.. → {error.message}
-               </p>
-            ) : (
-               ''
-            )}
-            <Router>
+         <Router>
+            <div className="App">
+               <div className="header">
+                  <Link to="/">
+                     <h1>Ticket Viewer</h1>
+                  </Link>
+               </div>
+               {error ? (
+                  <p className="my-2">
+                     <span role="img" aria-label="loading error">
+                        😓
+                     </span>Oops something went wrong.. → {error.message}
+                  </p>
+               ) : (
+                  ''
+               )}
                <Switch>
-                  {!!tickets ? (
-                     <TicketsData {...tickets} />
-                  ) : (
-                     <div className="my-2 loader" />
-                  )}
+                  <Route
+                     path="/"
+                     exact
+                     render={() => (
+                        <Fragment>
+                           {!!tickets ? (
+                              <TicketsData {...tickets} />
+                           ) : (
+                              <div className="my-2 loader" />
+                           )}
+                        </Fragment>
+                     )}
+                  />
+
+                  {!!tickets &&
+                     tickets.requests.map(ticket => {
+                        return (
+                           <Route
+                              path={`/${ticket.id}`}
+                              exact
+                              render={() => (
+                                 <Fragment>
+                                    <p>{ticket.description}</p>
+                                 </Fragment>
+                              )}
+                           />
+                        )
+                     })}
                </Switch>
-            </Router>
-         </div>
+            </div>
+         </Router>
       )
    }
 }
