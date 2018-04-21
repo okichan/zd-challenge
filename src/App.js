@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import './App.css'
 import { listTickets } from './api/zendesk'
+import TicketsData from './components/TicketsData'
 
 class App extends Component {
    state = {
@@ -12,8 +12,7 @@ class App extends Component {
       listTickets()
          .then(res => this.setState({ tickets: res, error: null }))
          .catch(error => {
-            this.setState({ error: error.message })
-            // console.log('Error loading quote!', error)
+            this.setState({ error })
          })
    }
 
@@ -21,11 +20,24 @@ class App extends Component {
       const { tickets, error } = this.state
       return (
          <div className="App">
-            <h1>Ticket Viewer</h1>
-            <p>{error}</p>
-            {/* {tickets && tickets.map(ticket => {
-               <p>{ticket.id}</p>
-            })} */}
+            <div className="header">
+               <h1>Ticket Viewer</h1>
+            </div>
+            {error ? (
+               <p className="my-2">
+                  <span role="img" aria-label="loading error">
+                     😓
+                  </span>Oops something went wrong.. → {error.message}
+                  {error.response}
+               </p>
+            ) : (
+               ''
+            )}
+            {!!tickets ? (
+               <TicketsData {...tickets} />
+            ) : (
+               <div className="my-2 loader" />
+            )}
          </div>
       )
    }
