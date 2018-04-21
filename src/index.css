@@ -23,8 +23,18 @@ a {
   margin: 20px 0;
 }
 
+.ticket-total {
+  margin: 1rem;
+  font-weight: bold;
+}
+
 .date {
   color: gray;
+  float: right;
+}
+
+.date::before {
+  content: 'created at: ';
 }
 
 .ticket-list {
@@ -35,10 +45,6 @@ a {
 .ticket-list:hover {
   background: rgb(247, 239, 248);
   /* cursor: pointer; */
-}
-
-.date::before {
-  content: ' | ';
 }
 
 .loader {

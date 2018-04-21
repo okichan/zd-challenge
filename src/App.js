@@ -1,4 +1,10 @@
 import React, { Component } from 'react'
+import {
+   BrowserRouter as Router,
+   Switch,
+   Route,
+   Redirect
+} from 'react-router-dom'
 import { listTickets } from './api/zendesk'
 import TicketsData from './components/TicketsData'
 
@@ -28,16 +34,19 @@ class App extends Component {
                   <span role="img" aria-label="loading error">
                      😓
                   </span>Oops something went wrong.. → {error.message}
-                  {error.response}
                </p>
             ) : (
                ''
             )}
-            {!!tickets ? (
-               <TicketsData {...tickets} />
-            ) : (
-               <div className="my-2 loader" />
-            )}
+            <Router>
+               <Switch>
+                  {!!tickets ? (
+                     <TicketsData {...tickets} />
+                  ) : (
+                     <div className="my-2 loader" />
+                  )}
+               </Switch>
+            </Router>
          </div>
       )
    }
