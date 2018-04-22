@@ -7,7 +7,7 @@ import TicketDetails from './components/TicketDetails'
 class App extends Component {
    state = {
       tickets: null,
-      ticketsPerPage: 10,
+      ticketsPerPage: 20,
       currentPage: 1,
       error: null
    }
@@ -20,7 +20,7 @@ class App extends Component {
          })
    }
 
-   handleClick = event => {
+   setCurrentPage = event => {
       this.setState({
          currentPage: Number(event.target.id)
       })
@@ -29,7 +29,7 @@ class App extends Component {
    render() {
       const { tickets, ticketsPerPage, currentPage, error } = this.state
 
-      // Logic for displaying current todos
+      // Logic for displaying current tickets
       const indexOfLastTicket = currentPage * ticketsPerPage
       const indexOfFirstTicket = indexOfLastTicket - ticketsPerPage
       let currentTickets
@@ -45,8 +45,10 @@ class App extends Component {
       }
 
       const renderPageNumbers = pageNumbers.map(number => {
+         let activePage
+         activePage = this.state.currentPage === number ? 'active-page' : ''
          return (
-            <li key={number} id={number} onClick={this.handleClick}>
+            <li key={number} className={activePage} id={number} onClick={this.setCurrentPage}>
                {number}
             </li>
          )
@@ -61,7 +63,7 @@ class App extends Component {
                   </Link>
                </div>
                {error ? (
-                  <p className="my-2">
+                  <p className="my-2 center">
                      <span role="img" aria-label="loading error">
                         😓
                      </span>Oops something went wrong.. → {error.message}
@@ -81,7 +83,7 @@ class App extends Component {
                                  {tickets.count} tickets in total
                               </p>
                               <ul id="page-numbers">{renderPageNumbers}</ul>
-                              <ul>
+                              <ul className="tickets-container">
                                  {currentTickets.map(ticket => {
                                     return <TicketsData ticket={ticket} key={ticket.id} />
                                  })}

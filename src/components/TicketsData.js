@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 function TicketsData({ ticket }) {
    return (
-      <Link to={String(ticket.id)} >
-         <li className="ticket-list capitalize" >
+      <Link to={String(ticket.id)} className="ticket-conteiner">
+         <li className="ticket-list capitalize">
             {ticket.subject}
             <small className="date right">
                {String(ticket.created_at).replace(/[A-Z]/g, ' ')}
