@@ -3,21 +3,23 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import { listTickets } from './api/zendesk'
 import TicketsData from './components/TicketsData'
 import TicketDetails from './components/TicketDetails'
+import loader from './loader.svg'
 
 class App extends Component {
    state = {
       tickets: null,
       ticketsPerPage: 20,
       currentPage: 1,
-      error: null
+      error: null,
+      dummy: null
    }
 
    componentDidMount() {
       listTickets()
-         .then(res => this.setState({ tickets: res, error: null }))
-         .catch(error => {
-            this.setState({ error })
-         })
+      .then(res => this.setState({ tickets: res, error: null }))
+      .catch(error => {
+         this.setState({ error })
+      })
    }
 
    setCurrentPage = event => {
@@ -48,7 +50,11 @@ class App extends Component {
          let activePage
          activePage = this.state.currentPage === number ? 'active-page' : ''
          return (
-            <li key={number} className={activePage} id={number} onClick={this.setCurrentPage}>
+            <li
+               key={number}
+               className={activePage}
+               id={number}
+               onClick={this.setCurrentPage}>
                {number}
             </li>
          )
@@ -105,7 +111,7 @@ class App extends Component {
                      })}
                   </Switch>
                ) : (
-                  <div className="my-2 loader" />
+                  <img src={loader} className="loader" alt="now loading"/>
                )}
             </div>
          </Router>

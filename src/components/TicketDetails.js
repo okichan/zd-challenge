@@ -1,6 +1,6 @@
 import React from 'react'
 
-function TicketsDetails({ticket }) {
+function TicketsDetails({ ticket }) {
    return (
       <div className="ticket-details">
          <span>Requester ID: {ticket.requester_id}</span>
