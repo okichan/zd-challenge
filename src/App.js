@@ -11,7 +11,6 @@ class App extends Component {
       ticketsPerPage: 20,
       currentPage: 1,
       error: null,
-      dummy: null
    }
 
    componentDidMount() {

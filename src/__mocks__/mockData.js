@@ -1,4 +1,4 @@
-{
+module.exports = {
    "requests": [
       {
          "url": "https://tomomioki.zendesk.com/api/v2/requests/32.json",

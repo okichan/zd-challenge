@@ -1,7 +1,11 @@
 ### Zendesk Coding Challenge
 
-`yarn install` or `npm install`
+First of all `yarn install` or `npm install`
 
-then
+### To view
 
 `yarn start` or `npm start`
+
+### To test
+
+`yarn test` or `npm test`
