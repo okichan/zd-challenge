@@ -87,13 +87,13 @@ class App extends Component {
                               <p className="ticket-total">
                                  {tickets.count} tickets in total
                               </p>
-                              <ul id="page-numbers">{renderPageNumbers}</ul>
+                              <ul className="page-numbers">{renderPageNumbers}</ul>
                               <ul className="tickets-container">
                                  {currentTickets.map(ticket => {
                                     return <TicketsData ticket={ticket} key={ticket.id} />
                                  })}
                               </ul>
-                              <ul id="page-numbers">{renderPageNumbers}</ul>
+                              <ul className="page-numbers">{renderPageNumbers}</ul>
                            </Fragment>
                         )}
                      />
